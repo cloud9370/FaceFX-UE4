@@ -28,6 +28,17 @@ SOFTWARE.
 class UActorComponent;
 class UAtomComponent;
 
+/** Implement FaceFX Audio creater for CriWare SoundAtomCue */
+class FFaceFXAudioCreaterAtom : public IFaceFXAudioCreater
+{
+public:
+	/**
+	* Override for create FaceFX Audio defaul wave play
+	* @param Owner The owning character component to create the player for
+	*/
+	virtual TSharedPtr<IFaceFXAudio> Create(UFaceFXCharacter* Owner) override;
+};
+
 /** Audio layer that uses the Unreal Audio System */
 struct FFaceFXAudioAtom : public IFaceFXAudio
 {

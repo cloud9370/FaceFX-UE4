@@ -26,6 +26,11 @@ SOFTWARE.
 #include "AkComponent.h"
 #include "AkAudioEvent.h"
 
+TSharedPtr<IFaceFXAudio> FFaceFXAudioCreaterWwise::Create(UFaceFXCharacter* Owner)
+{
+	return MakeShareable(new FFaceFXAudioImplWwise(Owner));
+}
+
 /**
 * Loads the AK audio event if not loaded yet
 * @param Character The owning character

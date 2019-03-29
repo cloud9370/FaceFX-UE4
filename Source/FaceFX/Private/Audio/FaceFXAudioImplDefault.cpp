@@ -25,6 +25,11 @@ SOFTWARE.
 #include "Engine/StreamableManager.h"
 #include "GameFramework/Actor.h"
 
+TSharedPtr<IFaceFXAudio> FFaceFXAudioCreaterDefault::Create(UFaceFXCharacter* Owner)
+{
+	return MakeShareable(new FFaceFXAudioDefault(Owner));
+}
+
 void FFaceFXAudioDefault::Prepare(const UFaceFXAnim* Animation)
 {
 	check(Animation);

@@ -27,6 +27,11 @@ SOFTWARE.
 
 #include "AtomComponent.h"
 
+TSharedPtr<IFaceFXAudio> FFaceFXAudioCreaterAtom::Create(UFaceFXCharacter* Owner)
+{
+	return MakeShareable(new FFaceFXAudioAtom(Owner));
+}
+
 void FFaceFXAudioAtom::Prepare(const UFaceFXAnim* Animation)
 {
 	check(Animation);

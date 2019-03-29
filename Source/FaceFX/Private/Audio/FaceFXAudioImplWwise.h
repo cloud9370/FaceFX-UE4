@@ -27,6 +27,17 @@ SOFTWARE.
 class UAkComponent;
 class UAkAudioEvent;
 
+/** Implement FaceFX Audio creater for Wwise */
+class FFaceFXAudioCreaterWwise : public IFaceFXAudioCreater
+{
+public:
+	/**
+	* Override for create FaceFX Audio Wwise
+	* @param Owner The owning character component to create the player for
+	*/
+	virtual TSharedPtr<IFaceFXAudio> Create(UFaceFXCharacter* Owner) override;
+};
+
 /** Audio layer that uses WWise */
 struct FFaceFXAudioWwise : public IFaceFXAudio
 {

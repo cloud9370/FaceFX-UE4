@@ -173,6 +173,19 @@ protected:
 	uint8 bIsAutoPlaySound : 1;
 };
 
+/** FaceFX Audio creater interface, this can be extended outside plugin */
+class IFaceFXAudioCreater
+{
+public:
+	virtual ~IFaceFXAudioCreater() {}
+
+	/**
+	* FaceFX Audio create interface
+	* @param Owner The owning character component to create the player for
+	*/
+	virtual TSharedPtr<IFaceFXAudio> Create(UFaceFXCharacter* Owner) = 0;
+};
+
 /** Main audio layer */
 struct FFaceFXAudio
 {	

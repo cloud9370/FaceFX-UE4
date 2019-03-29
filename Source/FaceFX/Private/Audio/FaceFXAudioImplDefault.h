@@ -25,6 +25,17 @@ SOFTWARE.
 
 class UActorComponent;
 
+/** Implement FaceFX Audio creater for default wave play */
+class FFaceFXAudioCreaterDefault : public IFaceFXAudioCreater
+{
+public:
+	/**
+	* Override for create FaceFX Audio defaul wave play
+	* @param Owner The owning character component to create the player for
+	*/
+	virtual TSharedPtr<IFaceFXAudio> Create(UFaceFXCharacter* Owner) override;
+};
+
 /** Audio layer that uses the Unreal Audio System */
 struct FFaceFXAudioDefault : public IFaceFXAudio
 {
