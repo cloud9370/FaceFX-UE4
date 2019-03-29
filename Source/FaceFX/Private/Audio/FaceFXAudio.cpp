@@ -23,6 +23,9 @@ SOFTWARE.
 #include "FaceFXAnim.h"
 
 #include "FaceFXAudioImplDefault.h"
+#if WITH_CRIWARE_ATOM
+#include "FaceFXAudioImplAtom.h"
+#endif //WITH_CRIWARE_ATOM
 #if WITH_WWISE
 #include "FaceFXAudioImplWwise.h"
 #endif //WITH_WWISE
@@ -33,11 +36,16 @@ SOFTWARE.
 // Supported values :
 //	0 = UnrealAudioSystem(Default)
 //	1 = Wwise
+//	2 = CriWare
+#if WITH_CRIWARE_ATOM
+int32 PreferredAudioSystem = 2;
+#else //WITH_CRIWARE_ATOM
 #if WITH_WWISE
 int32 PreferredAudioSystem = 1;
 #else
 int32 PreferredAudioSystem = 0;
 #endif //WITH_WWISE
+#endif //WITH_CRIWARE_ATOM
 FAutoConsoleVariableRef CVarMaxGPUParticlesSpawnedPerFrame(TEXT("FaceFX.PreferredAudioSystem"), PreferredAudioSystem, TEXT("Sets the preferred audio system when playing audio within FaceFX. 0=UnrealAudioSystem (Default), 1=Wwise"));
 
 AActor* IFaceFXAudio::GetOwningActor() const
@@ -55,15 +63,26 @@ TSharedPtr<IFaceFXAudio> FFaceFXAudio::Create(UFaceFXCharacter* Owner)
 		return MakeShareable(new FFaceFXAudioWwise(Owner));
 	}
 #endif //WITH_WWISE
+#if WITH_CRIWARE_ATOM
+	if (PreferredAudioSystem == 2)
+	{
+		//CriWare preferred
+		return MakeShareable(new FFaceFXAudioAtom(Owner));
+	}
+#endif //WITH_CRIWARE_ATOM
 
 	return MakeShareable(new FFaceFXAudioDefault(Owner));
 }
 
 bool FFaceFXAudio::IsUsingSoundWaveAssets()
 {
+#if WITH_CRIWARE_ATOM
+	return PreferredAudioSystem != 2;
+#else //WITH_CRIWARE_ATOM
 #if WITH_WWISE
 	return PreferredAudioSystem != 1;
 #else
 	return true;
 #endif
+#endif //WITH_CRIWARE_ATOM
 }

@@ -116,6 +116,11 @@ public:
 		return Audio;
 	}
 
+	inline const TSoftObjectPtr<UObject>& GetAtomAudio() const
+	{
+		return AtomAudio;
+	}
+
 	inline const TSoftObjectPtr<UObject>& GetAudioAkEvent() const
 	{
 		return AudioAkEvent;
@@ -172,6 +177,10 @@ private:
 	/** The linked audio asset */
 	UPROPERTY(EditInstanceOnly, Category=Audio)
 	TSoftObjectPtr<USoundWave> Audio;
+
+	/** The linked CriWare SoundAtomCue */
+	UPROPERTY(EditInstanceOnly, Category = Audio)
+	TSoftObjectPtr<UObject> AtomAudio;
 
 	/** The linked Wwise audio event asset for: Play */
 	UPROPERTY(EditInstanceOnly, Category=AkAudio)

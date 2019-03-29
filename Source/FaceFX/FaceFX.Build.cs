@@ -28,6 +28,7 @@ public class FaceFX : ModuleRules
     /// Default target audio system will be set to Wwise if bCompileWithWwise is set to true
     /// </summary>
     private static bool bCompileWithWwise = false;
+    private static bool bCompileWithCriWareAtom = true;
 
     public FaceFX(ReadOnlyTargetRules Target) : base(Target)
 	{
@@ -47,6 +48,11 @@ public class FaceFX : ModuleRules
             }
         );
 
+        if (FaceFX.bCompileWithCriWareAtom)
+        {
+            PrivateDependencyModuleNames.Add("CriWareRuntime");
+        }
+
         if (Target.bBuildEditor)
         {
             PrivateDependencyModuleNames.Add("TargetPlatform");
@@ -60,5 +66,6 @@ public class FaceFX : ModuleRules
         }
 
         PublicDefinitions.Add(string.Format("WITH_WWISE={0}", bCompileWithWwise ? "1" : "0"));
+        PublicDefinitions.Add(string.Format("WITH_CRIWARE_ATOM={0}", bCompileWithCriWareAtom ? "1" : "0"));
     }
 }
