@@ -23,7 +23,7 @@
 #include "Engine/StreamableManager.h"
 #include "Components/SkeletalMeshComponent.h"
 
-UFaceFXComponent::UFaceFXComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer), NumAsyncLoadRequestsPending(0)
+UFaceFXComponent::UFaceFXComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer), AudioType(EFaceFXAudioType::Default), NumAsyncLoadRequestsPending(0)
 {
 }
 
@@ -305,6 +305,7 @@ void UFaceFXComponent::CreateCharacter(FFaceFXEntry& Entry)
 	{
 		if(UFaceFXActor* FaceFXActor = Entry.Asset.Get())
 		{
+			FaceFX::SetAudioType(AudioType);
 			//initialize the FaceFX character
 			Entry.Character = NewObject<UFaceFXCharacter>(this);
 			checkf(Entry.Character, TEXT("Unable to instantiate a FaceFX character. Possibly Out of Memory."));

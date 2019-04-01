@@ -21,6 +21,7 @@
 #pragma once
 
 #include "FaceFXData.h"
+#include "FaceFXAudioType.h"
 
 #include "Components/ActorComponent.h"
 #include "FaceFXComponent.generated.h"
@@ -91,6 +92,11 @@ UCLASS(ClassGroup=(Rendering, Common), hidecategories=(Object, Sockets, Activati
 class FACEFX_API UFaceFXComponent : public UActorComponent
 {
 	GENERATED_UCLASS_BODY()
+
+public:
+	/** Set audio play type within component */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EFaceFXAudioType AudioType;
 
 public:
 
