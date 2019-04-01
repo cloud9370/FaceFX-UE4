@@ -85,6 +85,9 @@ struct FACEFX_API FaceFX
 	*/
 	static bool GetAnimationBounds(const UFaceFXAnim* Animation, float& Start, float& End);
 
+	/** Set FaceFX Audio type */
+	static void SetAudioType(EFaceFXAudioType InAudioType) { AudioType = InAudioType; }
+
 	/** Get FaceFX Audio type */
 	static EFaceFXAudioType GetAudioType() { return FaceFX::AudioType; }
 
