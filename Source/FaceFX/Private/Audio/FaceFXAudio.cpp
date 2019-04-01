@@ -34,22 +34,6 @@ SOFTWARE.
 
 TMap<EFaceFXAudioType, TSharedPtr<IFaceFXAudioCreater>> FFaceFXAudio::CreaterMap;
 
-//Sound system to use within the FaceFX plugin.If the target sound system is invalid, the default (0, Unreal Audio System) will be used.
-// Supported values :
-//	0 = UnrealAudioSystem(Default)
-//	1 = Wwise
-//	2 = CriWare
-#if WITH_CRIWARE_ATOM
-int32 PreferredAudioSystem = 2;
-#else //WITH_CRIWARE_ATOM
-#if WITH_WWISE
-int32 PreferredAudioSystem = 1;
-#else
-int32 PreferredAudioSystem = 0;
-#endif //WITH_WWISE
-#endif //WITH_CRIWARE_ATOM
-FAutoConsoleVariableRef CVarMaxGPUParticlesSpawnedPerFrame(TEXT("FaceFX.PreferredAudioSystem"), PreferredAudioSystem, TEXT("Sets the preferred audio system when playing audio within FaceFX. 0=UnrealAudioSystem (Default), 1=Wwise"));
-
 AActor* IFaceFXAudio::GetOwningActor() const
 {
 	UFaceFXCharacter* Character = Owner.Get();
