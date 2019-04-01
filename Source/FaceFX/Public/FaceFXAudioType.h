@@ -27,13 +27,7 @@
 UENUM(BlueprintType)
 enum class EFaceFXAudioType : uint8
 {
-	Default
-
-#if WITH_WWISE
-	, Wwise
-#endif //WITH_WWISE
-
-#if WITH_CRIWARE_ATOM
-	, CriWareAtom
-#endif //WITH_CRIWARE_ATOM
+	Default = 0,
+	Wwise = 1,
+	CriWareAtom = 2
 };
