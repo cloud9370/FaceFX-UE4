@@ -95,7 +95,7 @@ class FACEFX_API UFaceFXComponent : public UActorComponent
 
 public:
 	/** Set audio play type within component */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=FaceFX)
 	EFaceFXAudioType AudioType;
 
 public:
