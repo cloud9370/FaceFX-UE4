@@ -34,6 +34,8 @@
 
 DEFINE_LOG_CATEGORY(LogFaceFX);
 
+EFaceFXAudioType FaceFX::AudioType = EFaceFXAudioType::Default;
+
 FString FaceFX::GetVersion()
 {
 	char ffx_version_string[32];

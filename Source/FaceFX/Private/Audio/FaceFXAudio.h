@@ -21,6 +21,7 @@ SOFTWARE.
 #pragma once
 
 #include "FaceFXData.h"
+#include "FaceFXAudioType.h"
 
 class UActorComponent;
 class UFaceFXCharacter;
@@ -189,6 +190,9 @@ public:
 /** Main audio layer */
 struct FFaceFXAudio
 {	
+	/** FaceFX Audio creater map */
+	static TMap<EFaceFXAudioType, TSharedPtr<IFaceFXAudioCreater>> CreaterMap;
+
 	/** 
 	* Creates the audio system to be used 
 	* @param Owner The owning character component to create the player for

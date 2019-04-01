@@ -32,6 +32,8 @@ SOFTWARE.
 
 #include "HAL/IConsoleManager.h"
 
+TMap<EFaceFXAudioType, TSharedPtr<IFaceFXAudioCreater>> FFaceFXAudio::CreaterMap;
+
 //Sound system to use within the FaceFX plugin.If the target sound system is invalid, the default (0, Unreal Audio System) will be used.
 // Supported values :
 //	0 = UnrealAudioSystem(Default)
@@ -56,33 +58,28 @@ AActor* IFaceFXAudio::GetOwningActor() const
 
 TSharedPtr<IFaceFXAudio> FFaceFXAudio::Create(UFaceFXCharacter* Owner)
 {
-#if WITH_WWISE
-	if (PreferredAudioSystem == 1)
+	if (FFaceFXAudio::CreaterMap.Num() <= 0)
 	{
-		//Wwise preferred
-		return MakeShareable(new FFaceFXAudioWwise(Owner));
-	}
+		// First time initialization
+		FFaceFXAudio::CreaterMap.Add(EFaceFXAudioType::Default, MakeShareable(new FFaceFXAudioCreaterDefault));
+#if WITH_WWISE
+		FFaceFXAudio::CreaterMap.Add(EFaceFXAudioType::Wwise, MakeShareable(new FFaceFXAudioCreaterDefault));
 #endif //WITH_WWISE
 #if WITH_CRIWARE_ATOM
-	if (PreferredAudioSystem == 2)
-	{
-		//CriWare preferred
-		return MakeShareable(new FFaceFXAudioAtom(Owner));
-	}
+		FFaceFXAudio::CreaterMap.Add(EFaceFXAudioType::CriWareAtom, MakeShareable(new FFaceFXAudioCreaterAtom));
 #endif //WITH_CRIWARE_ATOM
+	}
+
+	EFaceFXAudioType AudioType = FaceFX::GetAudioType();
+	if (FFaceFXAudio::CreaterMap.Contains(AudioType))
+	{
+		return FFaceFXAudio::CreaterMap[AudioType]->Create(Owner);
+	}
 
 	return MakeShareable(new FFaceFXAudioDefault(Owner));
 }
 
 bool FFaceFXAudio::IsUsingSoundWaveAssets()
 {
-#if WITH_CRIWARE_ATOM
-	return PreferredAudioSystem != 2;
-#else //WITH_CRIWARE_ATOM
-#if WITH_WWISE
-	return PreferredAudioSystem != 1;
-#else
-	return true;
-#endif
-#endif //WITH_CRIWARE_ATOM
+	return FaceFX::GetAudioType() == EFaceFXAudioType::Default;
 }

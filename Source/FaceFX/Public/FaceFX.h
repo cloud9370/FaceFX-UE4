@@ -24,6 +24,7 @@
 #include "FaceFXActor.h"
 #include "FaceFXAnim.h"
 #include "FaceFXConfig.h"
+#include "FaceFXAudioType.h"
 
 FACEFX_API DECLARE_LOG_CATEGORY_EXTERN(LogFaceFX, Display, All);
 DECLARE_STATS_GROUP(TEXT("FaceFX"),STATGROUP_FACEFX, STATCAT_Advance);
@@ -34,6 +35,9 @@ struct FFaceFXAnimData;
 
 struct FACEFX_API FaceFX
 {
+	/** Used for create what type of audio */
+	static EFaceFXAudioType AudioType;
+
 	/**
 	* Gets the FaceFX version
 	* @returns The FaceFX version string
@@ -80,6 +84,9 @@ struct FACEFX_API FaceFX
 	* @returns True if succeeded, else false
 	*/
 	static bool GetAnimationBounds(const UFaceFXAnim* Animation, float& Start, float& End);
+
+	/** Get FaceFX Audio type */
+	static EFaceFXAudioType GetAudioType() { return FaceFX::AudioType; }
 
 private:
 
