@@ -28,7 +28,7 @@ public class FaceFX : ModuleRules
     /// Default target audio system will be set to Wwise if bCompileWithWwise is set to true
     /// </summary>
     private static bool bCompileWithWwise = false;
-    private static bool bCompileWithCriWareAtom = true;
+    private static bool bCompileWithCriWareAtom = false;
 
     public FaceFX(ReadOnlyTargetRules Target) : base(Target)
 	{
