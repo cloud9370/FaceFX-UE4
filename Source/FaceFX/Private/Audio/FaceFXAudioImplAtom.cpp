@@ -75,7 +75,7 @@ bool FFaceFXAudioAtom::Play(float Position, UActorComponent** OutAudioComp)
 		{
 			CurrentProgress = FMath::Clamp(Position, 0.F, (float)Sound->GetLength() / 1000 );
 			AudioComp->SetSound(Sound);
-			AudioComp->bIsUISound = true;
+			//AudioComp->bIsUISound = true;
 			AudioComp->Play(CurrentProgress);
 
 			if (OutAudioComp)
@@ -110,7 +110,7 @@ bool FFaceFXAudioAtom::Pause(bool fadeOut)
 	if (UAtomComponent* AudioComp = GetAudioComponent())
 	{
 		AudioComp->Stop();
-		AudioComp->bIsUISound = true;
+		//AudioComp->bIsUISound = true;
 		AudioComp->Play(CurrentProgress);
 
 		//Since UE4.17 the engine does not update the audio times anymore within editor worlds. 
