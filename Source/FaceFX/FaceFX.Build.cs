@@ -31,7 +31,7 @@ public class FaceFX : ModuleRules
     private static bool bCompileWithCriWareAtom = false;
 
     public FaceFX(ReadOnlyTargetRules Target) : base(Target)
-	{
+    {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
         bEnforceIWYU = true;
 
