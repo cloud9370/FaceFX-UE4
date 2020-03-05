@@ -583,7 +583,10 @@ bool UFaceFXCharacter::JumpTo(float Position)
 	{
 		const float AudioPosition = Position + CurrentAnimStart;
 		checkf(AudioPosition >= 0.F, TEXT("Invalid audio playback range."));
-		return AudioPlayer->Play(AudioPosition);
+		UActorComponent* AudioCompStartedOn = nullptr;
+		const bool AudioStarted = AudioPlayer->Play(AudioPosition, &AudioCompStartedOn);
+		OnPlaybackStartAudio.Broadcast(this, GetCurrentAnimationId(), AudioStarted, AudioCompStartedOn);
+		return AudioStarted;
 	}
 
 	AudioPlayer->Stop();
