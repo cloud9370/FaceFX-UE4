@@ -260,7 +260,7 @@ void UFaceFXComponent::OnCharacterAudioStart(UFaceFXCharacter* Character, const 
 	//lookup the linked entry
 	if(FFaceFXEntry* Entry = Entries.FindByKey(Character))
 	{
-		OnPlaybackAudioStart.Broadcast(Entry->SkelMeshComp, AnimId.Name, IsAudioStarted, AudioComponentStartedOn);
+		OnPlaybackAudioStart.Broadcast(Entry->SkelMeshComp, AnimId.Group, AnimId.Name, IsAudioStarted, AudioComponentStartedOn);
 	}
 }
 
@@ -269,7 +269,7 @@ void UFaceFXComponent::OnCharacterPlaybackStopped(UFaceFXCharacter* Character, c
 	//lookup the linked entry
 	if(auto Entry = Entries.FindByKey(Character))
 	{
-		OnPlaybackStopped.Broadcast(Entry->SkelMeshComp, AnimId.Name);
+		OnPlaybackStopped.Broadcast(Entry->SkelMeshComp, AnimId.Group, AnimId.Name);
 	}
 }
 
