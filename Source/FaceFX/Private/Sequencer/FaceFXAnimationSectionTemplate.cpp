@@ -293,12 +293,12 @@ void FFaceFXAnimationExecutionToken::Execute(FPersistentEvaluationData& Persiste
 						FaceFXComponent->Stop(SkelMeshTarget);
 					}
 				}
-			}
 
-			if (SkelMeshTarget)
-			{
-				//enforce an update on the bones to trigger blend nodes
-				//SkelMeshTarget->RefreshBoneTransforms();
+				if (SkelMeshTarget)
+				{
+					//enforce an update on the bones to trigger blend nodes
+					SkelMeshTarget->RefreshBoneTransforms();
+				}
 			}
 		}
 	}
