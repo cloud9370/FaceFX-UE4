@@ -31,8 +31,11 @@ FAnimNode_BlendFaceFXAnimation::FAnimNode_BlendFaceFXAnimation() :
 	Alpha(1.F),
 	bSkipBoneMappingWithoutNS(false),
 	LODThreshold(INDEX_NONE),
-	bFaceFXCharacterLoadingCompleted(false)
+	bFaceFXCharacterLoadingCompleted(false),
+	bMeshDirty(false)
 {
+	Mutex = MakeShared<FCriticalSection>();
+
 #if !UE_BUILD_SHIPPING
 	bIsDebugLocalSpaceBlendShown = false;
 #endif
@@ -161,6 +164,7 @@ void FAnimNode_BlendFaceFXAnimation::Update_AnyThread(const FAnimationUpdateCont
 {
 	ComponentPose.Update(Context);
 	GetEvaluateGraphExposedInputs().Execute(Context);
+	UpdateMeshCharacter();
 }
 
 void FAnimNode_BlendFaceFXAnimation::Evaluate_AnyThread(FPoseContext& Output)
@@ -287,4 +291,23 @@ void FAnimNode_BlendFaceFXAnimation::EvaluateComponentSpace_AnyThread(FComponent
 			}
 		}
 	}
+}
+
+void FAnimNode_BlendFaceFXAnimation::MarkMeshDirty()
+{
+	// Enable Dirty Flag
+	FScopeLock ScopeLock(Mutex.Get());
+	bMeshDirty = true;
+}
+
+void FAnimNode_BlendFaceFXAnimation::UpdateMeshCharacter()
+{
+	FScopeLock ScopeLock(Mutex.Get());
+	if (!bMeshDirty)
+	{
+		return;
+	}
+
+	bMeshDirty = false;
+	bFaceFXCharacterLoadingCompleted = false;
 }

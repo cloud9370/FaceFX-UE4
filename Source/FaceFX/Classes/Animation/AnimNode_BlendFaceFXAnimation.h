@@ -103,4 +103,19 @@ private:
 	/** TODO: Remove again once engine issue have been localized */
 	uint8 bIsDebugLocalSpaceBlendShown : 1;
 #endif
+
+private:
+
+	bool bMeshDirty;
+
+	TSharedPtr<FCriticalSection> Mutex;
+
+public:
+
+	void MarkMeshDirty();
+
+private:
+
+	void UpdateMeshCharacter();
+
 };
